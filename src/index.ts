@@ -11,6 +11,9 @@ interface Person {
   lastName?: string;
   position?: string;
   fullName?: string;
+  cell?: string;
+  email?: string;
+  picture?: string;
 }
 
 function createPerson(
@@ -51,23 +54,41 @@ function print(arr: any[]): void {
     section?.appendChild(wrapper);
 
     const ul = document.createElement('ul');
+    if (item.picture) {
+      let img = new Image() as HTMLImageElement;
+
+      img.src = item.picture;
+      ul?.appendChild(img);
+    }
 
     for (let [key, value] of Object.entries(item)) {
-      if (typeof value === 'object') {
-        value = JSON.stringify(value);
+      if (key !== 'picture') {
+        const li = document.createElement('li');
+        li.innerHTML = `${key}: ${value}`;
+        ul?.appendChild(li);
       }
-      const li = document.createElement('li');
-      li.innerHTML = `${key}: ${value}`;
-      ul?.appendChild(li);
     }
 
     wrapper?.appendChild(ul);
   });
 }
 
+function mapPeople(arr: any[]): Person[] {
+  return arr.map((person) => {
+    return {
+      firstName: person.name.first,
+      lastName: person.name.last,
+      cell: person.cell,
+      email: person.email,
+      picture: person.picture.thumbnail,
+    };
+  });
+}
+
 getPeople('https://randomuser.me/api/?results=50&nat=us').then((users) => {
   console.log(users);
+  users = mapPeople(users);
   print(users);
 });
 
-print(filtered);
+// print(filtered);
