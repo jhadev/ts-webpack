@@ -21,6 +21,10 @@
   },
   "homepage": "https://github.com/jhadev/ts-webpack#readme",
   "devDependencies": {
+    "css-loader": "^3.5.3",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.2.1",
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.3",
     "webpack": "^4.43.0",

@@ -1,4 +1,5 @@
 import { Person, createPerson, filterPeople } from './helpers';
+import './style.scss';
 
 const section = document.getElementsByTagName('section')[0];
 
@@ -28,6 +29,7 @@ async function getPeople(url: string): Promise<any> {
 function print(arr: any[]): void {
   arr.forEach((item) => {
     const wrapper = document.createElement('div');
+    wrapper.classList.add('wrapper');
     section?.appendChild(wrapper);
 
     const ul = document.createElement('ul');
