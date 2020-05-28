@@ -1,22 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 20px;
+}
+
 section {
-  // display: flex;
-  // flex-flow: column;
-  // justify-content: center;
-  // align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
 
   .wrapper {
 
-
-
+    width: 20%;
+    margin: 0 2%;
 
     ul {
 
-      // img {
-      //   width: 50%;
-      // }
+      img {
+        width: 100%;
+        border-radius: 10px;
+      }
 
       li {
-
+        margin: 10px 10px;
         font-size: 1.2rem;
       }
     }

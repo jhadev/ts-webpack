@@ -15,6 +15,7 @@ export function createPerson(
   lastName?: string;
   fullName?: string;
   position?: string;
+  picture?: string;
 } {
   if (person.lastName) {
     person.fullName = `${person.firstName} ${person.lastName}`;

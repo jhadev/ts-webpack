@@ -7,6 +7,7 @@ const me: Person = createPerson({
   firstName: 'Josh',
   lastName: 'A',
   position: 'Developer',
+  picture: 'https://www.fillmurray.com/g/400/400',
 });
 
 const somebody: Person = createPerson({
@@ -59,7 +60,7 @@ function mapPeople(arr: any[]): Person[] {
       lastName: person.name.last,
       cell: person.cell,
       email: person.email,
-      picture: person.picture.thumbnail,
+      picture: person.picture.large,
     };
   });
 }
@@ -67,6 +68,7 @@ function mapPeople(arr: any[]): Person[] {
 getPeople('https://randomuser.me/api/?results=50&nat=us').then((users) => {
   console.log(users);
   users = mapPeople(users);
+
   print(users);
 });
 
