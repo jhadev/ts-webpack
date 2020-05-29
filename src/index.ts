@@ -1,4 +1,5 @@
 import { Person, createPerson, filterPeople } from './helpers';
+import { lazyLoad } from './observer';
 import './style.scss';
 
 const section = document.getElementsByTagName('section')[0];
@@ -64,36 +65,6 @@ function mapPeople(arr: any[]): Person[] {
       picture: person.picture.large,
     };
   });
-}
-
-function lazyLoad(): IntersectionObserver {
-  const options = {
-    rootMargin: '0px',
-    threshold: 0.5,
-  };
-
-  const observer = new IntersectionObserver((entries, self) => {
-    entries.forEach((entry) => {
-      console.log('entry: ', entry);
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          loadImage(entry.target);
-
-          self.unobserve(entry.target);
-        }
-      });
-    });
-  }, options);
-
-  return observer;
-}
-
-function loadImage(img: any) {
-  const src = img.getAttribute('data-src');
-  if (!src) {
-    return;
-  }
-  img.src = src;
 }
 
 getPeople('https://randomuser.me/api/?results=50&nat=us').then((users) => {
