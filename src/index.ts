@@ -34,10 +34,11 @@ function print(arr: any[]): void {
     section?.appendChild(wrapper);
 
     const ul = document.createElement('ul');
-    if (item.picture) {
-      let img = new Image() as HTMLImageElement;
 
-      img.src = item.picture;
+    if ('picture' in item) {
+      let img = new Image() as HTMLImageElement;
+      img.classList.add('photo');
+      img.setAttribute('data-src', item.picture);
       ul?.appendChild(img);
     }
 
@@ -65,11 +66,47 @@ function mapPeople(arr: any[]): Person[] {
   });
 }
 
+function lazyLoad(): IntersectionObserver {
+  const options = {
+    rootMargin: '0px',
+    threshold: 0.5,
+  };
+
+  const observer = new IntersectionObserver((entries, self) => {
+    entries.forEach((entry) => {
+      console.log('entry: ', entry);
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          loadImage(entry.target);
+
+          self.unobserve(entry.target);
+        }
+      });
+    });
+  }, options);
+
+  return observer;
+}
+
+function loadImage(img: any) {
+  const src = img.getAttribute('data-src');
+  if (!src) {
+    return;
+  }
+  img.src = src;
+}
+
 getPeople('https://randomuser.me/api/?results=50&nat=us').then((users) => {
   console.log(users);
   users = mapPeople(users);
-
   print(users);
+  const observer = lazyLoad();
+
+  const photos = document.querySelectorAll('[data-src]');
+
+  photos.forEach((photo) => {
+    observer.observe(photo);
+  });
 });
 
 print(filtered);
