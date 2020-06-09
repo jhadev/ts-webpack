@@ -1,5 +1,5 @@
 function loadImage(img: any): void {
-  const src = img.getAttribute('data-src');
+  const src = img.getAttribute("data-src");
   if (!src) {
     return;
   }
@@ -8,20 +8,18 @@ function loadImage(img: any): void {
 
 export function lazyLoad(): IntersectionObserver {
   const options = {
-    rootMargin: '0px',
+    rootMargin: "0px",
     threshold: 0.5,
   };
 
   const observer = new IntersectionObserver((entries, self) => {
     entries.forEach((entry) => {
-      console.log('entry: ', entry);
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          loadImage(entry.target);
+      console.log("entry: ", entry);
+      if (entry.isIntersecting) {
+        loadImage(entry.target);
 
-          self.unobserve(entry.target);
-        }
-      });
+        self.unobserve(entry.target);
+      }
     });
   }, options);
 
